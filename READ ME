@@ -2,6 +2,7 @@
 
 % When updating on Wix, change "https://larcizet.wixsite.com/mysite"  into "https://laconferencedc.github.io/laconferencedc" for every file
 
+ATTENTION A NE PAS LAISSER D'ESPACE !
 % Erase WIX AD:
 from <div id="WIX_ADS"
 <div id="BACKGROUND_GROUP"
