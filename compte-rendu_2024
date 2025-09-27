@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Document A4 – Avenir Light + Titres gras</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    /* ===== Déclarations de police (remplacer les URLs par tes fichiers) ===== */
+    @font-face{
+      font-family: "Avenir Custom";
+      src:
+        url("fonts/Avenir-Light.woff2") format("woff2"),
+        url("fonts/Avenir-Light.woff") format("woff");
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face{
+      font-family: "Avenir Custom";
+      src:
+        url("fonts/Avenir-Heavy.woff2") format("woff2"),
+        url("fonts/Avenir-Heavy.woff") format("woff");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ===== Variables ===== */
+    :root{
+      --page-w: 210mm;
+      --page-h: 297mm;
+      --margins: 20mm; /* marges internes de contenu */
+      --ink: #631E76;  /* couleur du texte et titres */
+      --accent:#631E76;
+      --font: "Avenir Custom", "Avenir", "Avenir Next",
+              -apple-system, BlinkMacSystemFont, "Segoe UI",
+              Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    html, body { height:100%; }
+
+    /* ===== Fond dégradé vertical couvrant toute la page ===== */
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family:var(--font);
+      font-weight:300;          /* Avenir Light */
+      line-height:1.45;
+
+      /* Vertical: haut (#A77F9A) -> bas (#F8E2B6) */
+      background: linear-gradient(180deg, #F8E2B6 0%, #A77F9A 100%);
+      background-attachment: fixed;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Feuille “transparente” pour laisser voir le dégradé plein-bleed */
+    .sheet{
+      box-sizing: border-box;
+      background: transparent;
+      width: var(--page-w);
+      min-height: var(--page-h);
+      margin: 16px auto;
+      padding: var(--margins);
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+      position: relative;
+      overflow: hidden;
+      color: var(--ink);
+    }
+
+    /* ===== Titres & texte ===== */
+    h1,h2,h3{ margin:0 0 .5rem; line-height:1.2; color: var(--ink); }
+    h1{
+      font-size:20pt;
+      font-weight:700;          /* Titre en gras */
+      letter-spacing: .2px;
+      text-align: justify;          /* justifie les lignes complètes */
+  text-align-last: center;  
+    }
+    h2{
+      font-size:14pt;
+      margin-top:1.2rem;
+      font-weight:700;          /* Sous-titres en gras pour cohérence */
+      border-bottom:1px solid rgba(99,30,118,.25);
+      padding-bottom:.2rem;
+    }
+    h3{
+      font-size:12pt;
+      margin-top:1rem;
+      font-weight:700;          /* Sous-sous-titres en gras */
+    }
+    p,li{
+      font-size:11pt;
+      font-weight:300;          /* Avenir Light pour le corps de texte */
+      color: var(--ink);
+    }
+    strong{ font-weight:700; }
+    em{ font-style: italic; }
+    a{ color:var(--accent); text-decoration:none; }
+
+    .page-break{ break-after: page; }
+    .avoid-break{ break-inside: avoid; }
+
+    table{
+      width:100%; border-collapse: collapse; font-size:10.5pt;
+      background: rgba(255,255,255,.75); color: var(--ink);
+    }
+    th,td{ border:1px solid rgba(99,30,118,.2); padding:6px 8px; }
+    thead{ display: table-header-group; font-weight:700; }
+    tfoot{ display: table-footer-group; }
+
+    img{ max-width:100%; height:auto; }
+
+    /* En-tête/pied visuels à l’écran */
+    .print-header{
+      display:block;
+      font-size:10pt;
+      font-weight:700;
+      border-bottom:1px solid rgba(99,30,118,.25);
+      padding-bottom:4mm;
+      margin-bottom:8mm;
+      background: rgba(255,255,255,.55);
+      backdrop-filter: blur(2px);
+      color: var(--ink);
+    }
+    .print-footer{
+      display:flex;
+      justify-content:space-between;
+      font-size:9pt;
+      font-weight:300;
+      border-top:1px solid rgba(99,30,118,.25);
+      padding-top:4mm;
+      margin-top:8mm;
+      background: rgba(255,255,255,.55);
+      backdrop-filter: blur(2px);
+      color: var(--ink);
+    }
+
+    /* ===== Impression ===== */
+    @media print {
+      @page{
+        size: A4;
+        margin: 0; /* laisse le dégradé couvrir bord à bord */
+      }
+      html, body { height:auto; }
+      body{
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        background: linear-gradient(180deg, #A77F9A 0%, #F8E2B6 100%) !important;
+        color: var(--ink);
+      }
+      .sheet{
+        width: var(--page-w);
+        min-height: var(--page-h);
+        margin: 0;
+        padding: var(--margins);
+        box-shadow: none;
+        background: transparent;
+        color: var(--ink);
+      }
+      a{ color: var(--ink); text-decoration: underline; }
+      .no-print{ display:none !important; }
+    }
+    .logo-center{
+  display:flex;
+  justify-content:center;   /* centre horizontal */
+  /* align-items:center;    <- ajoute ceci pour centrer verticalement la ligne */
+  /* min-height: var(--page-h); <- décommente si tu veux centrer sur toute la page */
+}
+.logo{ width: 40mm; height:auto; }
+  </style>
+  
+</head>
+<body>
+
+    <!-- Contenu -->
+    <h1> Si l’Europe est déterminée à rattraper son retard sur les États-Unis, est-elle prête à le faire au détriment de sa cohésion interne ?</h1>
+    <div class="logo-center">
+  <a href="https://ibb.co/j1PBfYT">
+    <img class="logo" src="https://i.ibb.co/FjLN31K/Logo-Daniel-Cohen-Conference-Texte-FC-4x.png" alt="">
+  </a>
+</div>
+    <p class="avoid-break" align="justify">
+       <i>Quelques jours après la publication du rapport Draghi et l’entrée dans le débat public européen du décrochage de notre continent vis-à-vis des États-Unis, le département d’économie de l’École normale supérieure ouvrait ses portes pour une conversation autour de la convergence des économies européennes. Alimentée par les explications d’Antonin Bergeaud  et de Xavier Ragot, la soirée s’est poursuivie par un débat entre les économistes Dorothée Rouzet, Charles Serfaty et Vincent Vicard et le géographe Michael Storper, modéré par Simon Bunel. À la lumière de leurs contributions, nous développons ici une réflexion complémentaire : l’investissement transformateur recommandé pourrait accroître les disparités entre des centres urbanisés gagnants (les grandes villes, les pôles techno-universitaires, les grands ports et autres nœuds logistiques) et des périphéries perdantes. Cela appelle à repenser l’articulation entre les politiques d’investissement et les politiques de cohésion territoriale</i>
+    <h2></h2>
+    <p align="justify">Plusieurs rapports rendus publics en 2024 (Letta en avril, Draghi en septembre) ont remis au cœur du débat communautaire la question cruciale soulevée par la compétitivité déclinante du continent, qui accuse un retard croissant sur les autres grandes puissances mondiales.  À travers ce constat s’ouvre une séquence d’élaboration de la politique d’investissement adaptée pour rendre sa vigueur à l’économie de l’Union européenne. Le rapport Draghi documente ainsi la fin de la dynamique de convergence de l’Europe et des Etats-Unis, à l’œuvre pendant les Trente Glorieuses, en panne depuis les années 1990. Pour relever les défis de productivité auxquels est confrontée l’UE, il préconise surtout un surcroît d’investissement conséquent, de l’ordre de 5 points de PIB par an sur la période 2025-2030, soit trois fois le plan Marshall qui avait permis la reconstruction d’une Europe occidentale en ruines après la Seconde Guerre mondiale.
+</p><p align="justify">
+Toutefois, cette réflexion ne va pas sans un impensé : comment s’assurer que cette politique d’investissements massifs, dont on imagine l’ampleur transformatrice, bénéficie équitablement à tous les territoires européens ? Depuis le traité de Rome, la politique européenne de cohésion assure les soubassements économiques de l’intégration politique, en particulier grâce à des transferts financiers très importants, tournés vers l’Europe ex-soviétique, le sud de l’Italie et l’ouest de l’Espagne. Pourtant, ces mécanismes de transfert paraissent depuis longtemps incapables de lutter contre les déséquilibres macroéconomiques internes à la zone euro, l’incohérence des politiques socio-fiscales entre États-membres. Au moment de la signature du traité de Lisbonne, les économies des États-membres étaient encore marquées par la divergence entre gagnants et perdants de l’union monétaire, ouvrant la voie aux eurosceptiques de la décennie 2010. Mais une convergence d’ampleur s’est entamée à la suite de la crise de 2008, aidée par les politiques du travail françaises et allemandes et le développement des économies des anciens pays de l’Est. Toutefois, la concentration naturelle des nouvelles dynamiques d’investissement dans les centres métropolitains et les pôles d’innovation, rend obsolètes certaines compétences tout en permettant à quelques entreprises et territoires starifiés d’accumuler les richesses, sans qu’elles ruissellent automatiquement.
+</p>
+
+   
+
+    <h2>Une Europe de plus en plus intégrée… au détriment de sa convergence interne ?</h2>
+    <p align="justify">
+
+La course à l’euro s’est lancée sans convergence socio-fiscale préalable, en dépit d’une série de divergences majeures provoquées par la réunification de l’Allemagne. La modération salariale  allemande qui s’ensuit dans les années 2000 déséquilibre complètement l’économie européenne, en générant des gains de compétitivité-coût significatifs outre-Rhin relativement aux autres pays. Si, sur le plan national, cette politique permet de soigner « l’homme malade de l’Europe », fragilisé par le coût de la réunification, sur le plan européen à l’inverse cela déséquilibre considérablement le solde commercial des membres de la zone euro. L’Allemagne exporte jusqu’à l’équivalent de 50 % de son PIB en 2011  tandis que les autres membres de la Zone Euro expérimentent l’effondrement progressif de leur balance commerciale, sans possibilité de dévaluer l’euro, porté par les exportations allemandes. 
+</p><p align="justify">
+Aujourd’hui, ces déséquilibres macroéconomiques se sont en partie résorbés. La crise de 2008, puis la crise de la dette de la zone euro ont servi d’électrochocs, et ont montré qu’un tel régime économique n’était pas soutenable. Premièrement, les mécanismes de cohésion et d’intégration ont acquis une nouvelle ampleur. La Grèce au bord de la faillite a reçu environ 380 milliards d’euros  de transferts, soit l’équivalent de 4 % du PIB de la zone euro en 2015. Plus récemment, le plan Next Generation EU (NGEU) a été déployé. L’une de ses composantes est un transfert monétaire massif, dont l’Italie et l’Espagne sont les grands bénéficiaires, recevant respectivement un montant égal à 10,7 % et 13,4 % de leur PIB . Deuxièmement, les pays de l’Union européenne ont pris conscience de la nécessité de faire converger leurs politiques sociales ; la décennie 2010 marque de ce point de vue un tournant pour le couple franco-allemand. En Allemagne, entre 2011 et 2020, les salaires nominaux corrigés de la productivité du travail ont progressé à un rythme plus rapide que dans tous les autres grands pays européens, notamment à travers l’introduction d’un salaire minimum en 2015. En France, la gauche au pouvoir se voit forcée de conduire une politique de l’offre (notamment en mettant en place le CICE), et avale la potion amère des réformes du marché du travail. Cet ensemble de mesures fait baisser de manière spectaculaire le coût du travail en France, qui est ainsi revenu à des niveaux comparables à l’Allemagne. La mise en œuvre d’une réponse commune pour renforcer la productivité et la compétitivité européenne demeure incomplète. Sur le plan macroéconomique, les pays européens se trouvent à des niveaux d’endettement extrêmement hétérogènes. Malgré un essoufflement patent du modèle allemand, dont l’austérité budgétaire a conduit à un délabrement des infrastructures, le pays compte sur une R&D nettement plus performante qu’ailleurs en Europe, à l’exception de la Suède et de la Suisse. 
+</p>
+
+<h2>L’Europe des gagne-petit ? Une réponse inadaptée des politiques économiques à la révolution numérique</h2>
+
+<p align="justify">
+
+Le retard accumulé sur le front des innovations de rupture face aux Etats-Unis est indéniable depuis 30 ans. La divergence des mesures de richesse produites entre l’Europe et les Etats-Unis est un phénomène multifactoriel, qui résulte en partie de choix sociaux et politiques délibérés (temps de travail plus faible et systèmes sociaux plus protecteurs). Mais ce constat ne saurait épuiser le problème. Une part importante du creusement de l’écart en termes de PIB par habitant observé entre l’Europe et les Etats-Unis depuis les années 1990 provient surtout de la divergence du niveau d’innovation incorporé dans la production. Cela n’a pas toujours été le cas : l’Europe a connu un rattrapage spectaculaire après la Seconde Guerre mondiale, mais elle n’a jamais été en mesure d’accomplir le dernier kilomètre. Les niveaux de productivité par tête se creusent depuis trente ans, et plus encore depuis la fin du COVID. L’effritement du poids de la richesse nationale consacrée à la R&D explique en grande partie ce défaut d’innovation. Aujourd’hui la part du PIB consacrée à l’innovation est presque 50% plus faible qu’aux Etats-Unis (3,6 % contre 2,1 %). Là encore, la situation est hétérogène au sein de l’Union : l’Europe du Sud présente la situation de décrochage la plus critique (1,3 % en Italie, 1,4 % en Espagne). Même l’Allemagne y consacre un demi-point de PIB de moins que les Etats-Unis. </p><p align="justify">
+L’Europe a ainsi « deux révolutions de retard. » S’il se trouve à la frontière, quantitativement et qualitativement, sur le créneau des technologies et industries traditionnelles (chimie des matériaux, produits domestiques, transport, mécanique), voire en pointe sur des technologies vertes, le continent n’est qu’en position d’imitateur distancé dans le secteur des télécommunications et ne parvient pas à suivre la cadence dans les domaines du numérique, de la high-tech, et désormais de l’intelligence artificielle. Ce sont pourtant ces domaines qui sont porteurs d’innovations « de rupture », créateurs de forts gains de productivité, et d’immenses gains de richesse et de valeur ajoutée, comme le montrent les cotations boursières cumulées des Gafam depuis 25 ans. Le retard accumulé est tel que toute tentative de rattrapage se heurte à un écosystème économique peu dynamique, ce qui rend très difficile la création de synergies indispensables. Et lorsqu’on tente de combler ce retard, comme avec la création de la French Tech, le point qui demeure critique est le financement de l’innovation lors du passage à l’échelle. Comme le remarque Dorothée Rouzet, « l’accès au financement [pose des problèmes.] Avant d’être des licornes, quand elles ont vraiment besoin de tours de levées de fonds importants, les entreprises partent aux Etats-Unis et concrètement quittent l’Europe . » Il n’y a pourtant pas de problème structurel d’épargne en Europe, ni un manque d’investissements publics, qui sont au même niveau qu’aux Etats-Unis. Le problème relève davantage d’un manque d’investissements des entreprises privées, corollaire d’un marché des capitaux européens insuffisamment intégré face à des fonds de capital-risque américains d’une échelle bien supérieure.
+
+<p>
+
+<h2>La « smart specialization » régionale, ou le défi de la territorialisation des politiques d’investissement 
+
+
+</h2>
+
+<p align="justify"> L’exemple de la Silicon Valley rend très bien compte de la logique américaine de l’écosystème de l’innovation : il s’agit de régions qui favorisent l’appariement de ressources pour faire monter en puissance la R et D, ce qui permet en bout de chaîne sa commercialisation. Les Etats-Unis peuvent ainsi compter sur des synergies technologico-industrielles extrêmement puissantes d’investissements de plusieurs centaines de milliards de dollars, qui permettent une réelle mise en concurrence des idées. A l’inverse, les politiques de planification européenne sont aveugles au corollaire logique de ces politiques de spécialisation, à savoir que l’Europe ne peut compter qu’un nombre limité de pôles de compétitivité qu’il faut sélectionner au détriment des autres. Cet investissement massif et ciblé est néanmoins susceptible d’accroître les inégalités territoriales ; elle s’inscrit contre la répartition systématique des fonds européens au pro rata des poids des Etats membres, y compris pour la politique spatiale de l’ASE !</p><p align="justify"> Il y a donc une véritable opposition entre la spatialisation de l’innovation à l’américaine et la géographie à répétition européenne, qui conduit chaque pays à miser sur « son » cluster, par défaut de réflexion suffisamment poussée en la matière. Ainsi, en 2014, les stratégies de « spécialisation intelligente » (smart specialization strategies, ou S3) sont introduites comme un pilier de la politique de cohésion européenne : orthogonale à l’idée d’une spatialisation ultra-concentrée de l’innovation à l’américaine, cette pratique s’appuie sur un investissement équitable dans tous les territoires, pour leur permettre d’approfondir leurs avantages comparatifs antérieurs. </p><p align="justify">Pour le géographe Michael Storper, « l’Union européenne s’en tient à ce sujet à des propos lénifiants en défendant que ‘‘tous les territoires sont des territoires d’innovation’’ ». Cette stratégie est vouée à l’échec, car les clusters ainsi formés sont sous-dimensionnés pour être compétitifs et atteindre la frontière de l’innovation à l’échelle mondiale. Le choix de l’équité territoriale se fait nécessairement au détriment de son efficacité, car cette stratégie entre en contradiction profonde avec la nature même de la IIIe Révolution industrielle basée sur des innovations de « first-movers », ou innovations de rupture. La plupart des territoires sont en réalité extrêmement éloignés de la frontière de l’innovation, et le rendement de ces investissements y est extrêmement faible. À l’inverse, la pure spatialisation des investissements génère quasi-mécaniquement un accroissement des inégalités spatiales. </p><p align="justify">Pour Vincent Vicard, « comme les services échangeables sont surtout concentrés dans les grandes métropoles, il semble difficile de remplacer des activités industrielles par des activités de services échangeables dans les zones moins urbanisées . » Les territoires industriellement sinistrés, et même les villes moyennes ne profitant pas de dynamique métropolitaine, sont enfermés dans une spirale de déclin. Il est difficile d’endiguer ces dynamiques, car les activités pourvoyeuses d’emplois sont structurellement des activités de service qui s’implantent dans les métropoles, à l’exception de quelques activités à faible valeur ajoutée (l’exemple des centres de stockage Amazon est à ce titre édifiant). En Europe comme aux Etats-Unis, les discours d’extrême-droite aux forts accents protectionnistes progressent, en particulier dans ces territoires sinistrés. Il semble néanmoins difficile de trouver des arguments économiques de soutien aux freins à l’urbanisation dès lors que le rattrapage vis-à-vis des Etats-Unis est défini comme objectif. Il s’agit de différencier en la matière la résistance aux dynamiques de métropolisation du protectionnisme industriel : Charles Serfaty rappelle l’exemple historique de la prospère manufacture cotonnière française, protégée face à ses concurrents anglais au XIXe siècle .<p>
+
+
+<h2> Aux économistes de se positionner en architectes de la cohésion </h2>
+
+<p align="justify">Le processus de formation des inégalités d’aujourd’hui n’est plus celui d’hier. Les disparités territoriales que l’UE s’est efforcée jusqu’ici de corriger étaient héritées de l’histoire : il s’agissait alors de permettre le rattrapage de pays ou de vastes régions, via des dispositifs d’aides diffus sur des espaces également importants. La croissance schumpétérienne contemporaine génère pour sa part des inégalités infra-nationales entre métropoles starifiées et autres espaces, en marge de l’innovation et de la métropolisation. Ce changement de régime nécessite de revoir les politiques de cohésion territoriale européennes à au moins deux titres. </p>
+<p align="justify">Les dynamiques d’innovation contemporaines mettent à mal les objectifs de convergence européens, et on observe même une recrudescence des inégalités entre les régions des États membres historiques de l’UE . Or sur les questions de péréquation, le logiciel européen continue de faire droit aux échelles nationales et régionales : la méthode dite « de Berlin » , employée pour décider de la répartition des fonds de cohésion entre les territoires européens, continue par exemple à s’appuyer sur une clé de répartition élaborée à partir d’ensembles territoriaux larges (les « NUTS »). Il s’agit au contraire d’élaborer des objectifs de cohésion modulés à une échelle plus fine.</p><p align="justify">
+En deuxième lieu, l’instrument de la cohésion territoriale ne peut plus être la répartition équitable de l’investissement, puisque celui-ci doit se concentrer dans un petit nombre de pôles pour être véritablement efficace, c’est-à-dire générer la croissance nécessaire au rattrapage européen. Trouver un instrument alternatif pour corriger l’impact social d’une telle concentration ne peut passer que par la mise en place, sous une forme encore à définir et à négocier, d’un fédéralisme institutionnel renforcé sur les questions économiques et sociales. Le projet SURE de réassurance-chômage européenne porté par Bruxelles depuis 2020, par exemple, permet de soutenir les populations des régions sinistrées autrement qu’en y subventionnant un investissement finalement peu efficace. Il déplace la focale des politiques de cohésion du territoire à l’individu, sans confondre égalité des opportunités et uniformité spatiale .
+</p><p align="justify">
+Si l’économie européenne suit les recommandations du rapport Draghi, l’innovation se concentrera probablement dans un petit nombre de centres stratégiques, qui auront émergé de la compétition des territoires pour l’attraction des investissements et des compétences. Les autres territoires (couronnes périurbaines, villes moyennes, zones rurales) ne seront pas nécessairement laissés pour compte. La politique territoriale peut en effet s’intéresser à leur articulation aux foyers d’innovation. Plusieurs leviers existent, comme l’amélioration des infrastructures de transport et la capacité de charge périurbaine des grandes villes autour des villes-centre. Au bout du compte, à quel modèle territorial devrait-on adosser l’Europe de la croissance en 2050 ? Il y a là un arbitrage caduc, entre innovation et inégalités territoriales, que les économistes pourront dépasser à condition d’appréhender les dynamiques d’agglomération comme structurantes pour le XXIe siècle. <p>
+
+
+
+
+
+    <!-- Pied de page -->
+    <div class="print-footer" id="footer">
+      <span class="date-print" data-date=""></span>
+      <span class="page-number"></span>
+    </div>
+  </div>
+
+  <script>
+    // Injecte la date (utile à l’écran)
+    (function(){
+      const el = document.querySelector('.date-print');
+      if(el){
+        const d = new Date();
+        const pad = n => String(n).padStart(2,'0');
+        const ds = `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`;
+        el.setAttribute('data-date', ds);
+        el.textContent = `Imprimé le: ${ds}`;
+      }
+      const pn = document.querySelector('.page-number');
+      if(pn){ pn.textContent = "—"; }
+    })();
+  </script>
+</body>
+</html>
